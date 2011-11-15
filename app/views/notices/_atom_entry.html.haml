@@ -25,10 +25,10 @@
   - for line in notice.backtrace
     %tr
       %td
-        = "#{line['number']}:"
+        = #{line['number']}:
         &nbsp;&nbsp;
       %td
-        = raw "#{h line['file'].sub(/^\[PROJECT_ROOT\]/, '')} -> #{content_tag :strong, h(line['method'])}"
+        = #{line['file'].sub(/^\[PROJECT_ROOT\]/, '')} -> #{content_tag :strong, line['method']}
 
 %h3 Environment
 %table

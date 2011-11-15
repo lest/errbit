@@ -1,16 +1,16 @@
 !!! html
 %html
   %head
+    %meta{:content => "text/html; charset=utf-8", "http-equiv" => "content-type"}/
     %title
       Errbit &mdash;
-      = yield(:page_title).present? ? yield(:page_title) : yield(:title)
-    %meta{ :content => "text/html; charset=utf-8", "http-equiv" => "content-type" }/
+      = yield(:page_title).presence || yield(:title)
     = favicon_link_tag
     = csrf_meta_tag
     = javascript_include_tag :defaults
     = stylesheet_link_tag 'reset', 'application', 'jquery.alerts'
     :css
-      #{render :partial => "issue_trackers/icons.css"}
+      = render 'issue_trackers/icons.css'
 
     = yield :head
   %body{:id => controller.controller_name, :class => controller.action_name}
@@ -27,11 +27,11 @@
           #action-bar
             = action_bar
       #content
-        = render :partial => 'shared/flash_messages'
+        = render 'shared/flash_messages'
         = yield
       - if content_for?(:comments)
         #content-comments
           = yield :comments
-    #footer= "Powered by #{link_to 'Errbit', 'http://github.com/errbit/errbit', :target => '_blank'}: the open source error catcher.".html_safe
+    #footer Powered by #{link_to 'Errbit', 'http://github.com/errbit/errbit', :target => '_blank'}: the open source error catcher.
     = yield :scripts
 
